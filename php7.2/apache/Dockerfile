@@ -5,14 +5,19 @@ RUN set -ex; \
 	\
 	savedAptMark="$(apt-mark showmanual)"; \
 	\
+	add-apt-repository ppa:ondrej/php \
 	apt-get update; \
-	apt-get install -y --no-install-recommends \
+	apt-get install -y --allow-unauthenticated --no-install-recommends \
 		libjpeg-dev \
 		libpng-dev \
+		zlib1g-dev \
+		libicu-dev \
+		g++ \
+		software-properties-common \		
 	; \
 	\
-	docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr; \
-	docker-php-ext-install gd mysqli opcache zip; \
+	docker-php-ext-configure intl gd --with-png-dir=/usr --with-jpeg-dir=/usr; \
+	docker-php-ext-install intl gd mysqli opcache zip; \
 	\
 # reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
 	apt-mark auto '.*' > /dev/null; \
