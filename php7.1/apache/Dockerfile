@@ -5,7 +5,6 @@ RUN set -ex; \
 	\
 	savedAptMark="$(apt-mark showmanual)"; \
 	\
-	add-apt-repository ppa:ondrej/php \
 	apt-get update; \
 	apt-get install -y --allow-unauthenticated --no-install-recommends \
 		libjpeg-dev \
